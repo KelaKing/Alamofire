@@ -1,4 +1,4 @@
-// swift-tools-version:5.1
+// swift-tools-version:5.3
 //
 //  Package.swift
 //
@@ -25,21 +25,21 @@
 
 import PackageDescription
 
-let package = Package(name: "Alamofire",
-                      platforms: [.macOS(.v10_12),
-                                  .iOS(.v10),
-                                  .tvOS(.v10),
-                                  .watchOS(.v3)],
-                      products: [.library(name: "Alamofire",
-                                          targets: ["Alamofire"])],
-                      targets: [.target(name: "Alamofire",
-                                        path: "Source",
-                                        linkerSettings: [.linkedFramework("CFNetwork",
-                                                                          .when(platforms: [.iOS,
-                                                                                            .macOS,
-                                                                                            .tvOS,
-                                                                                            .watchOS]))]),
-                                .testTarget(name: "AlamofireTests",
-                                            dependencies: ["Alamofire"],
-                                            path: "Tests")],
-                      swiftLanguageVersions: [.v5])
+let package = Package(
+    name: "Alamofire",
+    platforms: [.macOS(.v10_12),
+                .iOS(.v10),
+                .tvOS(.v10),
+                .watchOS(.v3)],
+    products: [.library(name: "Alamofire",
+                        targets: ["Alamofire"])],
+    targets: [
+        .binaryTarget(
+                    name: "Alamofire",
+                    url: "https://github.com/KelaKing/cocoapods-xcframework/releases/download/1/Alamofire.xcframework.zip",
+                    checksum: "c4dd817a39fc59eec2c01aceae8fe6c1627f192f8f5f01b47ef746883b90bd9b"
+                ),
+        .testTarget(name: "AlamofireTests",
+                    dependencies: ["Alamofire"],
+                    path: "Tests")],
+    swiftLanguageVersions: [.v5])
